@@ -3,147 +3,523 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="João Pedro Mangi — PhD student in Mathematics at IMPA, Rio de Janeiro." />
   <title>João Pedro Mangi</title>
-  <meta name="description" content="PhD student in Mathematics at IMPA, Rio de Janeiro." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.75;
-      color: #222;
-      background: #fff;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 52px 28px 96px;
+    /* ── CSS Variables ───────────────────────────────────────── */
+    :root {
+      --bg:        #faf9f7;
+      --surface:   #f2f0ec;
+      --border:    #e0ddd8;
+      --text:      #1a1917;
+      --muted:     #706d68;
+      --accent:    #2a5caa;
+      --accent-h:  #1d4280;
+      --tag-bg:    #e8edf5;
+      --tag-text:  #2a5caa;
+      --gap:       2.5rem;
+      --r:         4px;
     }
-    .header { display: flex; align-items: center; gap: 32px; margin-bottom: 52px; }
-    .avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-    .header-info h1 { font-family: 'Source Serif 4', serif; font-weight: 400; font-size: 26px; letter-spacing: -0.2px; margin-bottom: 4px; }
-    .header-info .role { font-size: 15px; color: #555; margin-bottom: 10px; line-height: 1.5; }
-    .header-links { display: flex; gap: 16px; flex-wrap: wrap; }
-    .header-links a { font-size: 13px; color: #555; text-decoration: none; border-bottom: 1px solid #ddd; padding-bottom: 1px; }
-    .header-links a:hover { color: #111; border-color: #111; }
-    section { margin-bottom: 44px; }
-    h2 { font-family: 'Source Serif 4', serif; font-weight: 400; font-size: 20px; margin-bottom: 6px; }
-    hr { border: none; border-top: 1px solid #ddd; margin-bottom: 18px; }
-    p { font-size: 15px; color: #333; margin-bottom: 14px; }
-    p:last-child { margin-bottom: 0; }
-    a { color: #333; text-decoration: none; border-bottom: 1px solid #bbb; }
-    a:hover { color: #000; border-color: #000; }
-    ol, ul { padding-left: 20px; margin-bottom: 0; }
-    li { font-size: 15px; color: #333; margin-bottom: 10px; }
-    li:last-child { margin-bottom: 0; }
-    .paper-title { font-style: italic; }
-    .cv-entry { display: flex; gap: 16px; margin-bottom: 10px; font-size: 15px; color: #333; }
-    .cv-date { flex-shrink: 0; color: #888; font-size: 13px; width: 130px; padding-top: 1px; }
-    .lang-row { display: flex; flex-wrap: wrap; gap: 8px 24px; }
-    .lang-level { font-size: 13px; color: #888; }
-    footer { margin-top: 56px; font-size: 12px; color: #bbb; }
-    @media (max-width: 500px) { .header { flex-direction: column; align-items: flex-start; gap: 20px; } .cv-date { width: 100px; } }
+
+    /* ── Reset ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-h); text-decoration: underline; }
+    ul { list-style: none; }
+
+    /* ── Layout ──────────────────────────────────────────────── */
+    .page {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: #1e3f7a;
+      border-right: none;
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 1.8rem;
+      gap: 2rem;
+      overflow-y: auto;
+    }
+
+    .sidebar-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.2);
+      display: block;
+    }
+
+    .sidebar-name {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+
+    .sidebar-role {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+
+    .sidebar-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .sidebar-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.65);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.15s;
+    }
+    .sidebar-links a:hover { color: #fff; text-decoration: none; }
+    .sidebar-links a svg { flex-shrink: 0; }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      margin-top: auto;
+    }
+
+    .sidebar-nav a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      padding: 0.3rem 0.5rem;
+      border-radius: var(--r);
+      transition: background 0.15s, color 0.15s;
+    }
+    .sidebar-nav a:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .sidebar-footer {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── Main Content ────────────────────────────────────────── */
+    .main {
+      padding: 3.5rem 4rem;
+      max-width: 760px;
+    }
+
+    /* ── Section ─────────────────────────────────────────────── */
+    section {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+    section:nth-child(1) { animation-delay: 0.05s; }
+    section:nth-child(2) { animation-delay: 0.12s; }
+    section:nth-child(3) { animation-delay: 0.19s; }
+    section:nth-child(4) { animation-delay: 0.26s; }
+    section:nth-child(5) { animation-delay: 0.33s; }
+    section:nth-child(6) { animation-delay: 0.40s; }
+    section:nth-child(7) { animation-delay: 0.47s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+
+    .section-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── About ───────────────────────────────────────────────── */
+    .about-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .about-text p + p { margin-top: 0.9rem; }
+
+    /* ── Publications ────────────────────────────────────────── */
+    .pub-list { display: flex; flex-direction: column; gap: 1.4rem; }
+
+    .pub-item {
+      padding: 1.1rem 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      transition: border-color 0.2s;
+    }
+    .pub-item:hover { border-color: var(--accent); }
+
+    .pub-status {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .pub-status.submitted { color: #b07d2a; }
+    .pub-status.published { color: #2a7a4a; }
+
+    .pub-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+
+    .pub-authors {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .pub-venue {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+
+    .pub-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pub-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      transition: background 0.15s;
+    }
+    .pub-link:hover { background: #d0d9ed; text-decoration: none; color: var(--accent-h); }
+
+    /* ── CV Timeline ─────────────────────────────────────────── */
+    .cv-list { display: flex; flex-direction: column; gap: 0; }
+
+    .cv-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cv-item:last-child { border-bottom: none; }
+
+    .cv-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 0.15rem;
+      line-height: 1.5;
+    }
+
+    .cv-role {
+      font-weight: 500;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .cv-inst {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── Talks ───────────────────────────────────────────────── */
+    .talk-list { display: flex; flex-direction: column; gap: 0; }
+    .talk-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .talk-item:last-child { border-bottom: none; }
+    .talk-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 0.1rem;
+    }
+    .talk-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.1rem 0.4rem;
+      border-radius: 2px;
+      display: inline-block;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* ── Teaching ────────────────────────────────────────────── */
+    .teach-list { display: flex; flex-direction: column; gap: 0; }
+    .teach-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .teach-item:last-child { border-bottom: none; }
+    .teach-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 0.1rem;
+    }
+
+    /* ── Languages ───────────────────────────────────────────── */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.25rem 0.65rem;
+      border-radius: 2px;
+    }
+    .tag.lang {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Mobile ──────────────────────────────────────────────── */
+    @media (max-width: 800px) {
+      .page { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 1.5rem;
+        gap: 1.2rem;
+        border-right: none;
+        border-bottom: 1px solid #1e3f7a;
+      }
+      .sidebar-photo { width: 72px; height: 72px; }
+      .sidebar-nav { display: none; }
+      .sidebar-footer { display: none; }
+      .main { padding: 2rem 1.5rem; max-width: 100%; }
+      .cv-item, .teach-item, .talk-item {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <img class="avatar" src="https://lh3.googleusercontent.com/sitesv/AA5AbUC37KnybNWJ_UFtjkHJfYTyEbrwqPuG3JyJT1bePTTWV8J1C9HpA7xlwk8Au6tWEtOJB5GYaHmkkqtx7ZTm8XRbc5VpxVcrM4cxbveTSnGMpCIBAGAKdL5MZpt6SSbwrrKK6zeKmgiU0ZyJ0JePkhXZKHQsr9BtEbdhl5q086bbfVv3PUatdwNggFxhHDOslZZyZvtbnJhigr43sGkRf3JY03Fnv9QRsavx=w1280" alt="João Pedro Mangi" />
-    <div class="header-info">
-      <h1>João Pedro Mangi</h1>
-      <div class="role">PhD student in Mathematics<br/><a href="https://impa.br" target="_blank">IMPA</a>, Rio de Janeiro, Brazil</div>
-      <div class="header-links">
-        <a href="mailto:mangi.joao@impa.br">mangi.joao@impa.br</a>
-        <a href="https://drive.google.com/file/d/1orTuArJcythFgcx-wRWYidveaCOs33S4/view?usp=sharing" target="_blank">CV</a>
-        <a href="https://github.com/joaopedromangi-hue" target="_blank">GitHub</a>
+<div class="page">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <img
+      class="sidebar-photo"
+      src="https://lh3.googleusercontent.com/sitesv/AA5AbUC37KnybNWJ_UFtjkHJfYTyEbrwqPuG3JyJT1bePTTWV8J1C9HpA7xlwk8Au6tWEtOJB5GYaHmkkqtx7ZTm8XRbc5VpxVcrM4cxbveTSnGMpCIBAGAKdL5MZpt6SSbwrrKK6zeKmgiU0ZyJ0JePkhXZKHQsr9BtEbdhl5q086bbfVv3PUatdwNggFxhHDOslZZyZvtbnJhigr43sGkRf3JY03Fnv9QRsavx=w1280"
+      alt="João Pedro Mangi"
+    />
+
+    <div>
+      <div class="sidebar-name">João Pedro Mangi</div>
+      <div class="sidebar-role">PhD Student in Mathematics<br>IMPA · Rio de Janeiro</div>
+    </div>
+
+    <div class="sidebar-links">
+      <a href="mailto:mangi.joao@impa.br">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        mangi.joao@impa.br
+      </a>
+      <a href="https://github.com/joaopedromangi-hue" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        joaopedromangi-hue
+      </a>
+      <a href="https://drive.google.com/file/d/1orTuArJcythFgcx-wRWYidveaCOs33S4/view?usp=sharing" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Curriculum Vitae
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#about">About</a>
+      <a href="#publications">Publications</a>
+      <a href="#cv">Education</a>
+      <a href="#talks">Talks & Posters</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#languages">Languages</a>
+    </nav>
+
+    <div class="sidebar-footer">© João Pedro Mangi · 2026</div>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- About -->
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div class="about-text">
+        <p>
+          I am a PhD student in Mathematics at <a href="https://impa.br" target="_blank">IMPA</a>,
+          Rio de Janeiro, Brazil, working under the supervision of Professor
+          <a href="https://w3.impa.br/~landim/" target="_blank">Claudio Landim</a>.
+        </p>
+        <p>
+          My research interests lie mainly in <strong>Probability Theory</strong> and its
+          connections to other areas, including interacting particle systems, partial
+          differential equations, optimal transport, statistics and machine learning.
+          At the moment I am mostly interested in deep learning and its applications.
+        </p>
+        <p>
+          You can find me at Office 429 at IMPA, or reach me at
+          <a href="mailto:mangi.joao@impa.br">mangi.joao@impa.br</a>.
+        </p>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <section>
-    <h2>About me</h2>
-    <hr />
-    <p>I am a PhD student in Mathematics at <a href="https://impa.br" target="_blank">IMPA</a>, Rio de Janeiro, Brazil, working under the supervision of professor <a href="https://w3.impa.br/~landim/" target="_blank">Claudio Landim</a>. 
-    <p>My research interests are mainly in Probability Theory and its connections to other areas, such as interacting particle systems, partial differential equations, optimal transport, statistics and machine learning. At the moment I am mostly interested in Deep Learning and its applications.</p>
-    <p>Contact: Office 429 at IMPA or <a href="mailto:mangi.joao@impa.br">mangi.joao@impa.br</a></p>
-  </section>
+    <!-- Publications -->
+    <section id="publications">
+      <h2 class="section-title">Publications</h2>
+      <div class="pub-list">
 
-  <section>
-    <h2>Publications</h2>
-    <hr />
-    <p style="font-size:13px; color:#888; margin-bottom:14px;">Submitted</p>
-    <ol>
-      <li><span class="paper-title">Fractional Macroscopic Fluctuation Theory for a Superdiffusive Ginzburg-Landau Dynamics.</span> (2026) (with <a href="https://www.hse.ru/en/org/persons/624039057/" target="_blank">C. Bernardin</a> and <a href="https://patriciamath.wixsite.com/patricia" target="_blank">P. Gonçalves</a>) [<a href="https://arxiv.org/abs/2603.25957" target="_blank">arXiv</a>]</li>
-    </ol>
-    <p style="font-size:13px; color:#888; margin: 18px 0 14px;">Published</p>
-    <ol>
-      <li><span class="paper-title">Stochastic Oscillators Out of Equilibrium: Scaling Limits and Correlation Estimates.</span> (2025) (with <a href="https://patriciamath.wixsite.com/patricia" target="_blank">P. Gonçalves</a> and <a href="https://sites.google.com/view/koheihayashi/english" target="_blank">K. Hayashi</a>) [<a href="https://arxiv.org/abs/2505.10256" target="_blank">arXiv</a>] To appear in <em>Nonlinearity</em>.</li>
-      <li><span class="paper-title">Exclusion Processes with Non-Reversible Boundary: Hydrodynamics and Large Deviations.</span> (2024) (with <a href="https://sites.google.com/view/bsalvadorhomepage/home" target="_blank">B. Salvador</a> and <a href="https://w3.impa.br/~landim/" target="_blank">C. Landim</a>) <em>Journal of Statistical Physics</em> (2025) 192:157 [<a href="https://arxiv.org/abs/2411.17653" target="_blank">arXiv</a>, <a href="https://doi.org/10.1007/s10955-025-03538-2" target="_blank">published</a>]</li>
-    </ol>
-  </section>
+        <div class="pub-item">
+          <div class="pub-status submitted">Submitted · 2026</div>
+          <div class="pub-title">
+            Fractional Macroscopic Fluctuation Theory for a Superdiffusive Ginzburg-Landau Dynamics
+          </div>
+          <div class="pub-authors">
+            with <a href="https://www.hse.ru/en/org/persons/624039057/" target="_blank">C. Bernardin</a>
+            and <a href="https://patriciamath.wixsite.com/patricia" target="_blank">P. Gonçalves</a>
+          </div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://arxiv.org/abs/2603.25957" target="_blank">arXiv</a>
+          </div>
+        </div>
 
-  <section>
-    <h2>CV</h2>
-    <p>In the academic year of 2024/2025 and also from 07/23 to 12/23 I had the great pleasure of being a visiting scholar at <a href="https://math.tecnico.ulisboa.pt/index.php?lang=pt" target="_blank">IST Lisbon</a> under the supervision of professor <a href="https://patriciamath.wixsite.com/patricia" target="_blank">Patricia Gonçalves</a>.</p>
-    <hr />
-    <div class="cv-entry"><span class="cv-date">03/23 – present</span><span>PhD in Mathematics, IMPA. Advisor: <a href="https://w3.impa.br/~landim/" target="_blank">Claudio Landim</a></span></div>
-    <div class="cv-entry"><span class="cv-date">09/24 – 08/25 · 07/23 – 12/23</span><span>Visiting Scholar, IST Lisbon. Supervisor: <a href="https://patriciamath.wixsite.com/patricia" target="_blank">Patricia Gonçalves</a></span></div>
-    <div class="cv-entry"><span class="cv-date">03/21 – 03/23</span><span>Master in Mathematics, IMPA. Advisor: <a href="https://w3.impa.br/~landim/" target="_blank">Claudio Landim</a></span></div>
-    <div class="cv-entry"><span class="cv-date">03/17 – 03/21</span><span>Bachelor in Mathematics, UFRJ. Advisors: Rolci Cipolatti and <a href="https://sites.google.com/view/giulio-iacobelli/" target="_blank">Giulio Iacobelli</a></span></div>
-    <p style="margin-top:16px; font-size:14px;">For an extended CV see <a href="https://drive.google.com/file/d/1orTuArJcythFgcx-wRWYidveaCOs33S4/view?usp=sharing" target="_blank">here</a>.</p>
-  </section>
+        <div class="pub-item">
+          <div class="pub-status published">To appear · 2025</div>
+          <div class="pub-title">
+            Stochastic Oscillators Out of Equilibrium: Scaling Limits and Correlation Estimates
+          </div>
+          <div class="pub-authors">
+            with <a href="https://patriciamath.wixsite.com/patricia" target="_blank">P. Gonçalves</a>
+            and <a href="https://sites.google.com/view/koheihayashi/english" target="_blank">K. Hayashi</a>
+          </div>
+          <div class="pub-venue">To appear in <em>Nonlinearity</em></div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://arxiv.org/abs/2505.10256" target="_blank">arXiv</a>
+          </div>
+        </div>
 
-  <section>
-    <h2>Talks and Posters</h2>
-    <hr />
-    <ol>
-      <li>March 2026 — Talk, Probability in Mathematical Physics Seminar, IST Lisbon, Portugal.</li>
-      <li>July 2025 — Talk, NESP: Mathematical and Physical Advances, Florence, Italy.</li>
-      <li>April 2025 — Talk, Kansai Probability Seminar, Kyoto, Japan.</li>
-      <li>March 2025 — Talk, IST Probability and Mathematical Physics Day, Lisbon, Portugal.</li>
-      <li>November 2024 — Talk, SPASS Seminar, Florence, Italy.</li>
-      <li>November 2024 — Talk, Analysis Seminar, University of Braga, Portugal.</li>
-      <li>September 2024 — Poster, Particle Systems and PDEs XII, Trieste, Italy.</li>
-      <li>August 2024 — Poster, XXVII Brazilian School of Probability, Salvador, Brazil.</li>
-      <li>November 2023 — Talk, Probability group, IST Lisbon, Portugal.</li>
-    </ol>
-  </section>
+        <div class="pub-item">
+          <div class="pub-status published">Published · 2024</div>
+          <div class="pub-title">
+            Exclusion Processes with Non-Reversible Boundary: Hydrodynamics and Large Deviations
+          </div>
+          <div class="pub-authors">
+            with <a href="https://sites.google.com/view/bsalvadorhomepage/home" target="_blank">B. Salvador</a>
+            and <a href="https://w3.impa.br/~landim/" target="_blank">C. Landim</a>
+          </div>
+          <div class="pub-venue"><em>Journal of Statistical Physics</em> (2025) 192:157</div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://arxiv.org/abs/2411.17653" target="_blank">arXiv</a>
+            <a class="pub-link" href="https://doi.org/10.1007/s10955-025-03538-2" target="_blank">published</a>
+          </div>
+        </div>
 
-  <section>
-    <h2>Skills</h2>
-    <hr />
-    <ol>
-      <li>Python.</li>
-    </ol>
-  </section>
+      </div>
+    </section>
 
-  <section>
-    <h2>Teaching</h2>
-    <hr />
-    <div class="cv-entry"><span class="cv-date">2026 S1</span><span>Teaching assistant, Complex Analysis (master), <a href="https://impa.br" target="_blank">IMPA</a></span></div>
-    <div class="cv-entry"><span class="cv-date">Summer 2026</span><span>Teaching assistant, Markov Chains (master), <a href="https://impa.br" target="_blank">IMPA</a></span></div>
-    <div class="cv-entry"><span class="cv-date">2025 S2</span><span>Teaching assistant, Probability II (PhD), <a href="https://impa.br" target="_blank">IMPA</a></span></div>
-    <div class="cv-entry"><span class="cv-date">2024 S1</span><span>Exercise lectures, Calculus I (undergraduate), <a href="https://impatech.impa.br/" target="_blank">IMPA Tech</a></span></div>
-    <div class="cv-entry"><span class="cv-date">Summer 2024</span><span>Teaching assistant, Markov Chains (master), <a href="https://impa.br" target="_blank">IMPA</a></span></div>
-    <div class="cv-entry"><span class="cv-date">Summer 2023</span><span>Teaching assistant, Markov Chains (master), <a href="https://impa.br" target="_blank">IMPA</a></span></div>
-    <div class="cv-entry"><span class="cv-date">2021 – 2022</span><span>Basic math classes, NGO Gamboa Ação, Rio de Janeiro (Volunteer)</span></div>
-    <div class="cv-entry"><span class="cv-date">2018</span><span>High school assistant professor, Colégio de A a Z, Rio de Janeiro</span></div>
-  </section>
+    <!-- Education / CV -->
+    <section id="cv">
+      <h2 class="section-title">Education & Positions</h2>
+      <div class="cv-list">
 
-  <section>
-    <h2>Languages</h2>
-    <hr />
-    <div class="lang-row">
-      <span>Portuguese <span class="lang-level">(native)</span></span>
-      <span>English <span class="lang-level">(advanced)</span></span>
-      <span>German <span class="lang-level">(intermediate)</span></span>
-      <span>French <span class="lang-level">(intermediate)</span></span>
-      <span>Spanish <span class="lang-level">(basic)</span></span>
-    </div>
-  </section>
+        <div class="cv-item">
+          <div class="cv-period">03/2023 – present</div>
+          <div class="cv-body">
+            <div class="cv-role">PhD in Mathematics</div>
+            <div class="cv-inst"><a href="https://impa.br" target="_blank">IMPA</a> · Advisor: <a href="https://w3.impa.br/~landim/" target="_blank">Claudio Landim</a></div>
+          </div>
+        </div>
 
-  <footer>João Pedro Mangi · 2026</footer>
+        <div class="cv-item">
+          <div class="cv-period">09/2024 – 08/2025<br>07/2023 – 12/2023</div>
+          <div class="cv-body">
+            <div class="cv-role">Visiting Scholar</div>
+            <div class="cv-inst"><a href="https://math.tecnico.ulisboa.pt/" target="_blank">IST Lisbon</a> · Supervisor: <a href="https://patriciamath.wixsite.com/patricia" target="_blank">Patricia Gonçalves</a></div>
+          </div>
+        </div>
 
-</body>
-</html>
+        <div class="cv-item">
+          <div class="cv-period">03/2021 – 03/2023</div>
+          <div class="cv-body">
+            <div class="cv-role">Master in Mathematics</div>
+            <div class="cv-inst"><a href="https://impa.br" target="_blank">IMPA</a> · Advisor: <a href="https://w3.impa.br/~landim/" target="_blank">Claudio Landim</a></div>
+          </div>
+        </div>
+
+        <div class="cv-item">
+          <div class="cv-period">03/2017 – 03/2021</div>
+          <div class="cv-body">
+            <div class="cv-role">Bachelor in Mathematics</div>
+            <div class="cv-inst"><a href="https://ufrj.br" target="_blank">UFRJ</a> · Advisors: Rolci Cipolatti and <a href="https://sites.google.com/view/giulio-iacobelli/" target="_blank">Giulio Iacobelli</a></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Talks -->
+    <section id="talks">
+      <h2 class="section-title">Talks & Posters</h2>
+      <div class="talk-list">
+
+        <div class="talk-item">
+          <div class="talk-date">March 2026</div>
+          <div><span class="talk-type">Talk</span> Probability in Mathematical Physics Seminar, IST Li
